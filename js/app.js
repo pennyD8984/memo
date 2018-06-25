@@ -9,20 +9,44 @@ const deck = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bol
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+// When DOM is ready, shuffle cards or when restart is clicked
+document.addEventListener('DOMContentLoaded', startGame);
+var deck = document.getElementById('deck');
+var cards = document.getElementsByClassName('card');
+// Create an array from HTML Collection
+var cards = Array.from(cards);
+function startGame(){
+// Call shuffle card function - it works, but it doesn't move stuff around
+	shuffle(cards);
+// change li positions
+	newDeck();
+	addEvt();
+}
 
-let cards = document.getElementsByClassName('card');
+
+
+
+
+function newDeck(e){
+	// loop through the card array and append the returned cards indexed el 
+	for (var i = 0; i < cards.length; i++){
+   		deck.appendChild(cards[i]);
+	};
+}
 // Loop through the array and add evt listener to every card
-for (var i = 0; i < cards.length; i++){
-   cards[i].addEventListener("click", startGame);
-};
+function addEvt(){
+	for (var i = 0; i < cards.length; i++){
+   		cards[i].addEventListener("click", clicked, true);
+	};
+}
 
 // Create a function that will toggle a class to every target clicked thanks to the 
 // e parameter and e.target
-function startGame(e){
-	shuffle(cards); // check -> e.target.classList.toggle('open') ;
-	e.target.style.backgroundColor = 'red';
+function clicked(e){
+	e.target.classList.toggle('show');
+	e.target.classList.toggle('open');
+	console.log(e.target);
 }
-
 
 
 function shuffle(array) {
@@ -38,6 +62,7 @@ function shuffle(array) {
 
     return array;
 }
+
 /*
 // Iterate through deck (HTML collection)
 function getCard(evt){for (var i = 0; i < deck.length; i++) {
