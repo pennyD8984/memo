@@ -1,8 +1,8 @@
 /*
- * Create a list that holds all of your cards
- 
-const deck = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", 
-			  "fa fa-cube", "fa fa-leaf","fa fa-bicycle","fa fa-bomb"];
+ * Create a list that holds all of your cards*/
+var deck = document.getElementById('deck');
+var cards = document.getElementsByClassName('card');
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -11,18 +11,18 @@ const deck = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bol
  */
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
-var deck = document.getElementById('deck');
-var cards = document.getElementsByClassName('card');
+deck.addEventListener('click', clicked);
+
 // Create an array from HTML Collection
 var cards = Array.from(cards);
+var icons = [];
+var clicks = 0;
 function startGame(){
 // Call shuffle card function - it works, but it doesn't move stuff around
 	shuffle(cards);
 // change li positions
 	newDeck();
-	addEvt();
 }
-
 
 
 
@@ -34,19 +34,45 @@ function newDeck(e){
 	};
 }
 // Loop through the array and add evt listener to every card
-function addEvt(){
+/*function addEvt(){
 	for (var i = 0; i < cards.length; i++){
-   		cards[i].addEventListener("click", clicked, true);
+        cards[i].addEventListener("click", clicked);
+        cards[i].addEventListener("click", getI);
+        cards[i].addEventListener("click", checkMatch);
 	};
-}
+}*/
 
 // Create a function that will toggle a class to every target clicked thanks to the 
 // e parameter and e.target
 function clicked(e){
 	e.target.classList.toggle('show');
 	e.target.classList.toggle('open');
-	console.log(e.target);
+    getI(e);
 }
+
+function getI(e){
+    // get target class name
+    var target = (e.target.querySelector('i').className);
+    // push i class names into an array
+    icons.push(target);
+    checkMatch(e);
+}
+
+function checkMatch(e){
+    // destructuring the array to access the data
+    var [v1, v2] = icons;
+    if(icons.length === 2){
+            if (v1 == v2)
+            { 
+                 e.target.classList.add('match');
+            }
+            else
+                console.log('n');
+        }
+}
+
+
+
 
 
 function shuffle(array) {
