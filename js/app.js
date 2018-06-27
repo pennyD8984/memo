@@ -12,35 +12,28 @@ var cards = document.getElementsByClassName('card');
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
 deck.addEventListener('click', clicked);
+deck.addEventListener('click', (function(){
+    let clicks = 0; 
+    return function(){
+        clicks++;
+        console.log(clicks);
+        if(clicks === 2){
+            alert('matched');
+            clicks = 0;
+        }
+        };
+})());
 
 // Create an array from HTML Collection
 var cards = Array.from(cards);
 var icons = [];
-var clicks = 0;
-function startGame(){
-// Call shuffle card function - it works, but it doesn't move stuff around
-	shuffle(cards);
-// change li positions
-	newDeck();
-}
 
 
 
 
-function newDeck(e){
-	// loop through the card array and append the returned cards indexed el 
-	for (var i = 0; i < cards.length; i++){
-   		deck.appendChild(cards[i]);
-	};
-}
-// Loop through the array and add evt listener to every card
-/*function addEvt(){
-	for (var i = 0; i < cards.length; i++){
-        cards[i].addEventListener("click", clicked);
-        cards[i].addEventListener("click", getI);
-        cards[i].addEventListener("click", checkMatch);
-	};
-}*/
+
+
+
 
 // Create a function that will toggle a class to every target clicked thanks to the 
 // e parameter and e.target
@@ -48,6 +41,7 @@ function clicked(e){
 	e.target.classList.toggle('show');
 	e.target.classList.toggle('open');
     getI(e);
+    checkMatch(icons);
 }
 
 function getI(e){
@@ -55,20 +49,11 @@ function getI(e){
     var target = (e.target.querySelector('i').className);
     // push i class names into an array
     icons.push(target);
-    checkMatch(e);
 }
 
 function checkMatch(e){
-    // destructuring the array to access the data
-    var [v1, v2] = icons;
-    if(icons.length === 2){
-            if (v1 == v2)
-            { 
-                 e.target.classList.add('match');
-            }
-            else
-                console.log('n');
-        }
+
+   
 }
 
 
@@ -88,26 +73,23 @@ function shuffle(array) {
 
     return array;
 }
+
+function newDeck(){
+    // loop through the card array and append the returned cards indexed el 
+    for (var i = 0; i < cards.length; i++){
+        deck.appendChild(cards[i]);
+    };
+}
+
+function startGame(){
+// Call shuffle card function - it works, but it doesn't move stuff around
+    shuffle(cards);
+// change li positions
+    newDeck();
+}
+
 
 /*
-// Iterate through deck (HTML collection)
-function getCard(evt){for (var i = 0; i < deck.length; i++) {
-    console.log(deck[i]); 
-}}
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
 
 
 /*
