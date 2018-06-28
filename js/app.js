@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', startGame);
 var cards = Array.from(cards);
 var icons = [];
 // check for clicks/update counter
-deck.addEventListener('click', getClicks);
 deck.addEventListener('click', clicked);
 
 let clicks = 0; 
@@ -31,9 +30,12 @@ function getClicks(e){
 };
 
 function clicked(e){
-	e.target.classList.toggle('show');
-	e.target.classList.toggle('open');
-    getI(e);
+    if (!e.target.classList.contains('open') && !e.target.classList.contains('show') ){
+    	e.target.classList.toggle('show');
+    	e.target.classList.toggle('open');
+        getI(e);
+        getClicks(e);
+    }
 }
 
 function getI(e){
