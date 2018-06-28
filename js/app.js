@@ -7,20 +7,22 @@ var cards = document.querySelectorAll('.card');
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
 deck.addEventListener('click', clicked);
-let moves = 0;
+// IIFE to avoid globals
+let clicks = (function(){
+        let count = 0;
+        return function(){
+            count++;
+            console.log(count);
+        };
+}());
+  
 // Create an array from HTML Collection to shuffle cards
 var cards = Array.from(cards);
 var icons = [];
 
-
-function addMove(){
-    moves++;
-    console.log(moves);
-}
-
 function clicked(e){
     if (!e.target.classList.contains('open') && !e.target.classList.contains('show') ){
-    	e.target.classList.toggle('show', 'open');
+       e.target.classList.toggle('show', 'open');
         getI(e);
     }
 }
@@ -31,9 +33,9 @@ function getI(e){
     // push i class names into an array only if the user doesn't click an opened card (no deck)
     if (e.target.classList.contains('card') && !e.target.classList.contains('open') && icons.length < 2){
         icons.push(target);
+        clicks();
         if(icons.length === 2)
         {
-            addMove();
             checkMatch();
             icons = [];
         }
@@ -44,7 +46,7 @@ function checkMatch(){
     if(icons[0].className === icons[1].className)
     {
             icons.forEach(function(c) {      
-            c.parentNode.classList.add('match');                  
+            c.parentNode.classList.add('match');             
         });   
     }
     else{
