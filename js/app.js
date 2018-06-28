@@ -3,21 +3,16 @@
 var deck = document.getElementById('deck');
 var cards = document.getElementsByClassName('card');
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
+deck.addEventListener('click', clicked);
+
 // Create an array from HTML Collection to shuffle cards
 var cards = Array.from(cards);
 var icons = [];
-// check for clicks/update counter
-deck.addEventListener('click', clicked);
-
 let clicks = 0; 
+
+
 
 function getClicks(e){
     if(e.target.nodeName === 'LI')
@@ -61,7 +56,10 @@ function checkMatch(){
     }
     else{
             icons.forEach(function(c) {   
-            c.parentNode.classList.add("noMatch");                  
+            c.parentNode.classList.add("noMatch");
+            setTimeout(function removeC() {
+                c.parentNode.classList.remove("open", "show", "noMatch");
+            }, 100);
         });
     }
 }
