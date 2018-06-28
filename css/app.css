@@ -78,8 +78,11 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    transform: skewX(25deg);
 }
-
+#deck .card.noMatch {
+    background-color: red;
+}
 /*
  * Styles for the Score Panel
  */

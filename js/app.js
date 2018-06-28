@@ -11,54 +11,66 @@ var cards = document.getElementsByClassName('card');
  */
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
+// Create an array from HTML Collection to shuffle cards
+var cards = Array.from(cards);
+var icons = [];
+// check for clicks/update counter
+deck.addEventListener('click', getClicks);
 deck.addEventListener('click', clicked);
-deck.addEventListener('click', (function(){
-    let clicks = 0; 
-    return function(){
+
+let clicks = 0; 
+
+function getClicks(e){
+    if(e.target.nodeName === 'LI')
         clicks++;
         console.log(clicks);
         if(clicks === 2){
-            alert('matched');
+            
             clicks = 0;
         }
-        };
-})());
+};
 
-// Create an array from HTML Collection
-var cards = Array.from(cards);
-var icons = [];
-
-
-
-
-
-
-
-
-// Create a function that will toggle a class to every target clicked thanks to the 
-// e parameter and e.target
 function clicked(e){
 	e.target.classList.toggle('show');
 	e.target.classList.toggle('open');
     getI(e);
-    checkMatch(icons);
 }
 
 function getI(e){
     // get target class name
-    var target = (e.target.querySelector('i').className);
+    var target = (e.target.querySelector('i'));
     // push i class names into an array
-    icons.push(target);
+    if (icons.length < 2){
+        icons.push(target);
+        if(icons.length === 2)
+        {
+            checkMatch();
+            icons = [];
+        }
+    }
 }
 
-function checkMatch(e){
-
-   
+function checkMatch(){
+    if(icons[0].className === icons[1].className)
+    {
+            icons.forEach(function(c) {      
+            c.parentNode.classList.add('match');                  
+        });   
+    }
+    else{
+            icons.forEach(function(c) {   
+            c.parentNode.classList.add("noMatch");                  
+        });
+    }
 }
 
+function match(e){
+    e.target.classList.add('match');
+}
 
+function noMatch(e){
 
-
+}
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
