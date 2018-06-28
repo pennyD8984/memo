@@ -1,46 +1,39 @@
+/* TODO
+/* - get rid of globals
 /*
  * Create a list that holds all of your cards*/
 var deck = document.getElementById('deck');
-var cards = document.getElementsByClassName('card');
-
+var cards = document.querySelectorAll('.card');
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
 deck.addEventListener('click', clicked);
-
+let moves = 0;
 // Create an array from HTML Collection to shuffle cards
 var cards = Array.from(cards);
 var icons = [];
-let clicks = 0; 
 
 
-
-function getClicks(e){
-    if(e.target.nodeName === 'LI')
-        clicks++;
-        console.log(clicks);
-        if(clicks === 2){
-            
-            clicks = 0;
-        }
-};
+function addMove(){
+    moves++;
+    console.log(moves);
+}
 
 function clicked(e){
     if (!e.target.classList.contains('open') && !e.target.classList.contains('show') ){
-    	e.target.classList.toggle('show');
-    	e.target.classList.toggle('open');
+    	e.target.classList.toggle('show', 'open');
         getI(e);
-        getClicks(e);
     }
 }
 
 function getI(e){
     // get target class name
     var target = (e.target.querySelector('i'));
-    // push i class names into an array
-    if (icons.length < 2){
+    // push i class names into an array only if the user doesn't click an opened card (no deck)
+    if (e.target.classList.contains('card') && !e.target.classList.contains('open') && icons.length < 2){
         icons.push(target);
         if(icons.length === 2)
         {
+            addMove();
             checkMatch();
             icons = [];
         }
@@ -59,18 +52,11 @@ function checkMatch(){
             c.parentNode.classList.add("noMatch");
             setTimeout(function removeC() {
                 c.parentNode.classList.remove("open", "show", "noMatch");
-            }, 100);
+            }, 1000);
         });
     }
 }
 
-function match(e){
-    e.target.classList.add('match');
-}
-
-function noMatch(e){
-
-}
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
