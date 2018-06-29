@@ -1,3 +1,7 @@
+/*
+ *  Animations from CSS tricks
+ */
+
 html {
     box-sizing: border-box;
 }
@@ -80,8 +84,30 @@ h1 {
     font-size: 33px;
     transform: skewX(25deg);
 }
-#deck .card.noMatch {
+#deck .card.noMatch {      
     background-color: red;
+    animation: shaky 1s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;  
+}
+
+@keyframes shaky {
+    10%, 90%{
+        transform: translate3d(-3px, 0, 0);
+    }
+      
+    20%, 80%{
+        transform: translate3d(4px, 0, 0);
+    }
+
+    30%, 50%, 70%{
+        transform: translate3d(-6px, 0, 0);
+    }
+
+    40%, 60%{
+        transform: translate3d(5px, 0, 0);
+      }
 }
 /*
  * Styles for the Score Panel
@@ -98,12 +124,15 @@ h1 {
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
+    color: #f4ce42;
+    text-shadow: 0px 0px 3px #000;
 }
 
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
 }
+
 
 .score-panel .restart {
     float: right;

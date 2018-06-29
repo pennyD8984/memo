@@ -2,8 +2,8 @@
 /* - get rid of globals
 /*
  * Create a list that holds all of your cards*/
-var deck = document.getElementById('deck');
-var cards = document.querySelectorAll('.card');
+let deck = document.getElementById('deck');
+let cards = document.querySelectorAll('.card');
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
 deck.addEventListener('click', clicked);
@@ -11,14 +11,14 @@ deck.addEventListener('click', clicked);
 let clicks = (function(){
         let count = 0;
         return function(){
-            count++;
+            count+=1;
             console.log(count);
         };
 }());
   
 // Create an array from HTML Collection to shuffle cards
-var cards = Array.from(cards);
-var icons = [];
+cards = Array.from(cards);
+let icons = [];
 
 function clicked(e){
     if (!e.target.classList.contains('open') && !e.target.classList.contains('show') ){
@@ -29,33 +29,44 @@ function clicked(e){
 
 function getI(e){
     // get target class name
-    var target = (e.target.querySelector('i'));
+    let target = (e.target.querySelector('i'));
     // push i class names into an array only if the user doesn't click an opened card (no deck)
     if (e.target.classList.contains('card') && !e.target.classList.contains('open') && icons.length < 2){
         icons.push(target);
-        clicks();
         if(icons.length === 2)
         {
+            clicks();            
             checkMatch();
             icons = [];
         }
     }
 }
 
+function checkWin(matched){
+    let matchedCards = document.querySelectorAll('.match');
+        if (matchedCards.length === cards.length){
+            console.log('you won');
+        }
+}
+
 function checkMatch(){
     if(icons[0].className === icons[1].className)
     {
-            icons.forEach(function(c) {      
-            c.parentNode.classList.add('match');             
-        });   
-    }
-    else{
-            icons.forEach(function(c) {   
-            c.parentNode.classList.add("noMatch");
-            setTimeout(function removeC() {
-                c.parentNode.classList.remove("open", "show", "noMatch");
-            }, 1000);
+        let matched = icons.map(function(el){
+            el.parentNode.classList.add('match');  
         });
+        console.log('matched.length = ' + matched.length);
+        checkWin(matched);
+      }
+
+    else{
+        let unMatched = icons.map(function(el){
+            el.parentNode.classList.add("noMatch");
+            setTimeout(function removeClass() {
+                el.parentNode.classList.remove("open", "show", "noMatch");
+            }, 1000);
+            return el;
+            });
     }
 }
 
