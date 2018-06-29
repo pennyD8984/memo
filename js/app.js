@@ -6,6 +6,22 @@ let deck = document.getElementById('deck');
 let cards = document.querySelectorAll('.card');
 // When DOM is ready, shuffle cards or when restart is clicked
 document.addEventListener('DOMContentLoaded', startGame);
+let restart = document.querySelector('.restart');
+restart.addEventListener('click', function(){
+    checkOpen();
+    startGame();    
+});
+
+function checkOpen()
+{
+    let opened = Array.from(document.querySelectorAll('.show', 'open', 'match'));  
+    if(opened.length > 0){
+        opened.forEach(function(x){
+            x.classList.remove('show', 'open', 'match');
+        });
+    }
+}
+
 deck.addEventListener('click', clicked);
 // IIFE to avoid globals
 let clicks = (function(){
