@@ -1,5 +1,5 @@
-#Memo game
-##How to play:
+# Memo game
+## How to play:
 Download or clone the repository and click on 'index.html'.
 As soon as you refresh the browser the game begins:
 * click on a card and try to find the corrisponding symbol
@@ -15,7 +15,10 @@ Folder content:
 * js/app.js, where the engine is stored
 
 
-###TODO
+### TODO
 - Change the theme of the game
 - Implement a start-game modal
 - Implement a caching system
+
+### Validators:
+HTML, CSS and Javascript files have been validated
