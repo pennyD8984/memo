@@ -186,7 +186,7 @@ h1 {
     top: 0;
     display: flex;
     justify-content: center;
-    visibility: visible;
+    visibility: hidden;
 }
 
 .modal .modal-content-style{
