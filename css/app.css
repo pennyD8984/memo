@@ -140,14 +140,13 @@ h1 {
 .fa-star{
     color: #f4ce42;
     text-shadow: 0px 0px 3px #000;
+    padding-right: .5em;
 }
 
 .stars {
     display: flex;
-    margin: 0;
-    padding-right: 1em;
-    margin: 0 5px 0 0;
-    min-width: 154px;
+	flex: 1;
+	margin-right: 1em;
 }
 
 .stars li {
@@ -161,7 +160,6 @@ h1 {
 
 .score-panel .timer-panel h4{
     display: flex;    
-
 }
 
 .score-panel #timer{ 
@@ -188,7 +186,7 @@ h1 {
     top: 0;
     display: flex;
     justify-content: center;
-    visibility: hidden;
+    visibility: visible;
 }
 
 .modal .modal-content-style{
@@ -393,5 +391,13 @@ h1 {
     .play{
         min-width: 48px;
         min-height: 48px;
+    }
+
+    .fa-star{
+    	padding-right: .1em;
+    }
+
+    .stars{
+		margin-right: 0;
     }
 }
